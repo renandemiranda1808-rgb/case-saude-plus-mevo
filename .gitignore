@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+*.egg-info/
+
+# PowerPoint temporários
+~$*.pptx
+~$*.xlsx
+
+# Versões intermediárias do PPTX (manter só o final)
+case_saude_plus.pptx
+case_saude_plus_v2.pptx
+case_mevo_executivo.pptx
+case_mevo_light.pptx
+case_mevo_final.pptx
+case_saude_plus_apresentacao.pptx
+
+# PDF copiado localmente
+case_ask.pdf
+
+# Ambiente virtual
+venv/
+.env
+
+# OS
+.DS_Store
+Thumbs.db

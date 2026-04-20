@@ -220,6 +220,7 @@ tabs = st.tabs([
     "🏥 Médicos",
     "🗺️ Geografia",
     "🎯 Plano de Ação",
+    "⚙️ Arquitetura & IA",
 ])
 
 
@@ -897,6 +898,86 @@ with tabs[7]:
           <ul style='color:{ESCURO}; font-size:0.82rem; padding-left:16px; margin:0;'>
             {items_html}
           </ul>
+        </div>
+        """, unsafe_allow_html=True)
+
+# ══════════════════════════════════════════════════════════════════════════════
+# TAB 9 — ARQUITETURA & IA
+# ══════════════════════════════════════════════════════════════════════════════
+with tabs[8]:
+    st.subheader("Arquitetura de Produção & Uso de IA")
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.markdown(f"#### 🤖 Como a IA foi usada neste case")
+        etapas_ia = [
+            ("Exploração de dados",    "Claude auditou qualidade, detectou anomalias (RJ, SEM ESP) e validou todos os KPIs contra os CSVs"),
+            ("Análise estatística",    "Claude gerou segmentação RFM de médicos, coorte de retenção Jan→Abr e funil comportamental"),
+            ("Visualizações",          "Scripts matplotlib/plotly com paleta Mevo extraída das imagens de marca via Pillow"),
+            ("Dashboard interativo",   "Este dashboard foi escrito pelo Claude — 8 abas, filtros dinâmicos, Plotly nativo"),
+            ("Apresentação executiva", "12 slides PPTX gerados via python-pptx com logo real da Mevo e waterfall PDCA"),
+            ("Correção de erros",      "3 erros críticos identificados e corrigidos: canal de venda, medicamento top e horário de pico"),
+        ]
+        for titulo, descricao in etapas_ia:
+            st.markdown(f"""
+            <div style='background:white; border-radius:8px; padding:12px 16px; margin:6px 0;
+                        border-left:4px solid {ROXO}; box-shadow:0 1px 4px rgba(0,0,0,0.06);'>
+              <div style='font-weight:700; color:{ROXO}; font-size:0.9rem;'>{titulo}</div>
+              <div style='color:{ESCURO}; font-size:0.83rem; margin-top:4px;'>{descricao}</div>
+            </div>
+            """, unsafe_allow_html=True)
+
+    with col2:
+        st.markdown(f"#### 🏗️ Evolução para Databricks")
+        st.markdown(f"""
+        <div style='background:{ROSA_CLARO}; border-radius:10px; padding:20px; font-size:0.88rem; color:{ESCURO};'>
+          <div style='font-weight:700; color:{ROXO}; margin-bottom:12px;'>Arquitetura atual (MVP)</div>
+          <div style='background:white; border-radius:6px; padding:10px; font-family:monospace; font-size:0.8rem;'>
+            CSV files<br>
+            &nbsp;&nbsp;↓<br>
+            pandas (local)<br>
+            &nbsp;&nbsp;↓<br>
+            Streamlit Cloud
+          </div>
+
+          <div style='font-weight:700; color:{ROXO}; margin:16px 0 12px;'>Arquitetura produção (Databricks)</div>
+          <div style='background:white; border-radius:6px; padding:10px; font-family:monospace; font-size:0.8rem;'>
+            Delta Lake + Unity Catalog<br>
+            &nbsp;&nbsp;↓<br>
+            Databricks SQL (ao vivo)<br>
+            &nbsp;&nbsp;↓<br>
+            Databricks Apps<br>
+            &nbsp;&nbsp;↓<br>
+            SSO + RBAC + URL pública
+          </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        beneficios = [
+            ("Delta Lake", "Dados versionados com time travel — analise qualquer ponto no passado"),
+            ("Unity Catalog", "Governança por coluna — médico só vê seus próprios pacientes"),
+            ("Databricks Apps", "Mesmo código Streamlit, deploy com 1 clique dentro do workspace"),
+            ("Queries ao vivo", "Dashboard sempre atualizado — sem re-deploy quando dados mudam"),
+            ("Escalabilidade", "Compute elástico — aguenta milhões de prescrições sem mudança de código"),
+        ]
+        for titulo, desc in beneficios:
+            st.markdown(f"""
+            <div style='display:flex; gap:10px; margin:6px 0; align-items:flex-start;'>
+              <div style='background:{ROXO}; color:white; border-radius:4px; padding:2px 8px;
+                          font-size:0.75rem; font-weight:700; white-space:nowrap; margin-top:2px;'>{titulo}</div>
+              <div style='color:{ESCURO}; font-size:0.83rem;'>{desc}</div>
+            </div>
+            """, unsafe_allow_html=True)
+
+        st.markdown(f"""
+        <div style='background:{ROXO}; color:white; border-radius:8px; padding:14px 16px; margin-top:16px;
+                    font-size:0.85rem;'>
+          <b>Migração:</b> trocar <code style='background:rgba(255,255,255,0.2); padding:1px 5px; border-radius:3px;'>
+          pd.read_csv()</code> por <code style='background:rgba(255,255,255,0.2); padding:1px 5px; border-radius:3px;'>
+          spark.table().toPandas()</code> — o restante do dashboard permanece idêntico.
         </div>
         """, unsafe_allow_html=True)
 
